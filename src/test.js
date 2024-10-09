@@ -6,12 +6,12 @@
 //     },
 //     perimeter: () => 2 * Math.PI * this.radius, // This line causes the problem
 //   };
-  
+
 //   console.log(shape.diameter());   // Works fine
 //   console.log(shape.perimeter());  // Outputs NaN
-  
-"use strict"
+
+"use strict";
 let greeting;
 
 greetign = {}; // Typo!
-console.log(greetign,value);
+console.log(greetign, value);
