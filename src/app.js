@@ -9,8 +9,9 @@ app.use(cookieParser());
 
 const signup = require("./routers/auth");
 const profile = require("./routers/profile");
+const connectionRequest = require("./routers/connections");
 
-app.use("/", signup, profile);
+app.use("/", signup, profile, connectionRequest);
 
 // now we need to get all the data from the db to show it in feed
 app.get("/feed", async (req, res) => {
