@@ -33,5 +33,3 @@ route.get("/feed", userAuth, async (req, res) => {
 });
 
 module.exports = route;
-
-// add a limit check to the feed api page.
