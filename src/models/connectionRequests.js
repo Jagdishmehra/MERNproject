@@ -4,9 +4,12 @@ const connectionRequestSchema = new mongoose.Schema(
   {
     fromUserId: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: "UserModel",
+      required: true,
     },
     toUserId: {
       type: mongoose.Schema.Types.ObjectId,
+      required: true,
     },
     status: {
       type: String,
@@ -14,11 +17,12 @@ const connectionRequestSchema = new mongoose.Schema(
         values: ["ignored", "interested", "rejected", "accepted"],
         message: "{VALUE} not a valid status type",
       },
+      required: true,
     },
   },
   { timestamps: true }
 );
-
+// applying the concept of compound indexing in mongo db.
 connectionRequestSchema.index({ fromUserId: 1, toUserId: 1 });
 
 //converting that schema into model

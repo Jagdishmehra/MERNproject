@@ -10,22 +10,12 @@ app.use(cookieParser());
 const signup = require("./routers/auth");
 const profile = require("./routers/profile");
 const connectionRequest = require("./routers/connections");
-
-app.use("/", signup, profile, connectionRequest);
+const request = require("./routers/requests");
+const feed = require("./routers/feed");
+app.use("/", signup, profile, connectionRequest, request, feed);
 
 // now we need to get all the data from the db to show it in feed
-app.get("/feed", async (req, res) => {
-  try {
-    const users = await UserModel.find({});
-    if (users.length) {
-      res.send(users);
-    } else {
-      res.send("user not found");
-    }
-  } catch (err) {
-    res.status(400).send("something went wrong");
-  }
-});
+
 // deleting a user from the db
 app.delete("/user/:id", async (req, res) => {
   const id = req.params.id;
@@ -45,5 +35,5 @@ connectdb()
     });
   })
   .catch((err) => {
-    console.log("error occured during connection", err);
+    console.log("Error occured during connection :" + err.message);
   });

@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const { Schema } = mongoose; //this is one way otheer way is directly extracting values from mongoose obj
+const { Schema } = mongoose;
 const userSchema = new Schema(
   {
-    //or use mongoose.schema
     firstName: { type: String, required: true, maxLength: 20, minLength: 2 },
     lastName: { type: String, required: true, maxLength: 20, minLength: 2 },
     age: { type: Number, required: true, min: 18 },

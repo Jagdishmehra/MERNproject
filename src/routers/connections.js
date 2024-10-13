@@ -56,4 +56,40 @@ route.post(
     }
   }
 );
+//now we will write logic to review the connection request sent by user
+route.get(
+  "/connection/request/:review/:requestId",
+  userAuth,
+  async (req, res) => {
+    try {
+      const requestId = req.params.requestId;
+
+      const status = req.params.review;
+
+      const loggedInUser = req.user;
+
+      const ALLOWED_STATUS = ["accepted", "rejected"];
+      if (!ALLOWED_STATUS.includes(status)) {
+        return res.status(400).send("Action not allowed");
+      }
+      const findConnectionRequest = await ConnectionRequestModel.findOne({
+        fromUserId: requestId,
+        toUserId: loggedInUser._id,
+        status: "interested",
+      });
+
+      if (!findConnectionRequest) {
+        return res.status(404).send("Request not Found ");
+      }
+      findConnectionRequest.status = status;
+      const data = await findConnectionRequest.save();
+      res.json({
+        message: `Connection request ${status}`,
+        data,
+      });
+    } catch (err) {
+      res.status(404).send("Request not Found" + err.message);
+    }
+  }
+);
 module.exports = route;
